@@ -1,14 +1,12 @@
 import express from 'express'
-import { ProductRouter } from './modules/product/product.route'
-import { OrderRouter } from './modules/order/order.route'
+import router from './routes'
 const app = express()
 
 // use json body parser 
 app.use(express.json())
 
-// use routers 
-app.use('/api/products', ProductRouter)
-app.use('/api/orders', OrderRouter)
+// use router
+app.use('/api', router)
 
 
 
