@@ -4,7 +4,7 @@ exports.Booking = void 0;
 const mongoose_1 = require("mongoose");
 const bookingSchema = new mongoose_1.Schema({
     date: {
-        type: Date,
+        type: String,
         required: true,
     },
     user: {

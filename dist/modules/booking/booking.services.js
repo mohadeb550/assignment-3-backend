@@ -18,11 +18,12 @@ const AppError_1 = __importDefault(require("../../errors/AppError"));
 const car_model_1 = require("../car/car.model");
 const user_model_1 = require("../user/user.model");
 const booking_model_1 = require("./booking.model");
+const mongoose_1 = __importDefault(require("mongoose"));
 const createBookingIntoDB = (userEmail, payload) => __awaiter(void 0, void 0, void 0, function* () {
     // get userData by email 
     const userData = yield user_model_1.User.findOne({ email: userEmail }, { createdAt: 0, updatedAt: 0, password: 0, __v: 0 });
-    // get car data by id 
-    const carData = yield car_model_1.Car.findById(payload.carId);
+    // update the car status available to unavailable 
+    const carData = yield car_model_1.Car.findByIdAndUpdate(payload.carId, { status: 'unavailable' }, { new: true });
     if (!userData) {
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'user is not exist');
     }
@@ -38,6 +39,19 @@ const createBookingIntoDB = (userEmail, payload) => __awaiter(void 0, void 0, vo
     const result = yield booking_model_1.Booking.create(bookingData);
     return result;
 });
+const getAllBookingsFromDB = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    const queryObj = {};
+    if ((query === null || query === void 0 ? void 0 : query.carId) && (query === null || query === void 0 ? void 0 : query.date)) {
+        queryObj['car._id'] = new mongoose_1.default.Types.ObjectId(query.carId);
+        queryObj.date = query.date;
+    }
+    const result = yield booking_model_1.Booking.find(queryObj);
+    return result;
+});
+const getUserBookingsFromDB = (userEmail) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield booking_model_1.Booking.find({ 'user.email': userEmail });
+    return result;
+});
 exports.bookingServices = {
-    createBookingIntoDB,
+    createBookingIntoDB, getAllBookingsFromDB, getUserBookingsFromDB
 };

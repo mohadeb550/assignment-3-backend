@@ -1,9 +1,9 @@
 import { Types } from "mongoose";
 
 export type TBooking = {
-    date : Date;
-    user : Object ;
-    car : Object;
+    date : string;
+    user : object;
+    car : object;
     startTime : string;
     endTime : string;
     totalCost : number;
