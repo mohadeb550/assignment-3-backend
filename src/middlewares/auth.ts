@@ -26,6 +26,7 @@ const auth = (...requiredRoles: string[] ) => {
         if(!requiredRoles.includes(role)){
             throw new AppError(httpStatus.FORBIDDEN, 'You are unauthorized');
         }
+        req.user = decoded as JwtPayload;
         next()
     })
 }

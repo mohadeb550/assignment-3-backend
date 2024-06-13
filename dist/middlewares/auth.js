@@ -35,6 +35,7 @@ const auth = (...requiredRoles) => {
         if (!requiredRoles.includes(role)) {
             throw new AppError_1.default(http_status_1.default.FORBIDDEN, 'You are unauthorized');
         }
+        req.user = decoded;
         next();
     }));
 };

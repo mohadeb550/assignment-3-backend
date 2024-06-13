@@ -6,11 +6,18 @@ import { carControllers } from './car.controllers';
 import auth from '../../middlewares/auth';
 const router = express.Router();
 
+// create 
+router.post('/', validateRequest(carValidations.createCarValidationSchema), auth('admin') , carControllers.createCar )
 
-router.post('/', validateRequest(carValidations.carValidationSchema), auth('admin') , carControllers.createCar )
+// update  
+router.put('/:id', validateRequest(carValidations.updateCarValidationSchema), auth('admin') , carControllers.updateCar )
 
-router.get('/', auth(),  carControllers.getAllCars)
-router.get('/:id', auth(), carControllers.getSingleCar)
+// delete  
+router.delete('/:id', auth('admin') , carControllers.deleteCar)
+
+// get 
+router.get('/', auth('admin','user'),  carControllers.getAllCars)
+router.get('/:id', auth('admin','user'), carControllers.getSingleCar)
 
 
 export const CarRoutes = router;

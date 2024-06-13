@@ -10,7 +10,13 @@ const validateRequest_1 = __importDefault(require("../../middlewares/validateReq
 const car_controllers_1 = require("./car.controllers");
 const auth_1 = __importDefault(require("../../middlewares/auth"));
 const router = express_1.default.Router();
-router.post('/', (0, validateRequest_1.default)(car_validation_1.carValidations.carValidationSchema), (0, auth_1.default)('admin'), car_controllers_1.carControllers.createCar);
-router.get('/', (0, auth_1.default)(), car_controllers_1.carControllers.getAllCars);
-router.get('/:id', (0, auth_1.default)(), car_controllers_1.carControllers.getSingleCar);
+// create 
+router.post('/', (0, validateRequest_1.default)(car_validation_1.carValidations.createCarValidationSchema), (0, auth_1.default)('admin'), car_controllers_1.carControllers.createCar);
+// update  
+router.put('/:id', (0, validateRequest_1.default)(car_validation_1.carValidations.updateCarValidationSchema), (0, auth_1.default)('admin'), car_controllers_1.carControllers.updateCar);
+// delete  
+router.delete('/:id', (0, auth_1.default)('admin'), car_controllers_1.carControllers.deleteCar);
+// get 
+router.get('/', (0, auth_1.default)('admin', 'user'), car_controllers_1.carControllers.getAllCars);
+router.get('/:id', (0, auth_1.default)('admin', 'user'), car_controllers_1.carControllers.getSingleCar);
 exports.CarRoutes = router;
