@@ -9,6 +9,10 @@ const router = express.Router();
 // create 
 router.post('/', validateRequest(carValidations.createCarValidationSchema), auth('admin') , carControllers.createCar )
 
+// return the car
+router.put('/return', validateRequest(carValidations.returnCarValidationSchema), auth('admin'), carControllers.returnCar )
+
+
 // update  
 router.put('/:id', validateRequest(carValidations.updateCarValidationSchema), auth('admin') , carControllers.updateCar )
 

@@ -9,3 +9,8 @@ export type TCar = {
     pricePerHour : number;
     isDeleted : boolean;
 }
+
+export type TReturnCarPayload = {
+    bookingId : string;
+    endTime : string;
+}

@@ -12,6 +12,8 @@ const auth_1 = __importDefault(require("../../middlewares/auth"));
 const router = express_1.default.Router();
 // create 
 router.post('/', (0, validateRequest_1.default)(car_validation_1.carValidations.createCarValidationSchema), (0, auth_1.default)('admin'), car_controllers_1.carControllers.createCar);
+// return the car
+router.put('/return', (0, validateRequest_1.default)(car_validation_1.carValidations.returnCarValidationSchema), (0, auth_1.default)('admin'), car_controllers_1.carControllers.returnCar);
 // update  
 router.put('/:id', (0, validateRequest_1.default)(car_validation_1.carValidations.updateCarValidationSchema), (0, auth_1.default)('admin'), car_controllers_1.carControllers.updateCar);
 // delete  

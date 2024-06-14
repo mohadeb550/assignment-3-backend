@@ -23,7 +23,12 @@ const updateCarValidationSchema = z.object({
     isDeleted : z.boolean().optional()
 })
 
+const returnCarValidationSchema = z.object({
+    bookingId : z.string(),
+    endTime : z.string(),
+})
+
 export const carValidations = {
     createCarValidationSchema,
-    updateCarValidationSchema
+    updateCarValidationSchema, returnCarValidationSchema
 }

@@ -22,7 +22,11 @@ const updateCarValidationSchema = zod_1.z.object({
     pricePerHour: zod_1.z.number().optional(),
     isDeleted: zod_1.z.boolean().optional()
 });
+const returnCarValidationSchema = zod_1.z.object({
+    bookingId: zod_1.z.string(),
+    endTime: zod_1.z.string(),
+});
 exports.carValidations = {
     createCarValidationSchema,
-    updateCarValidationSchema
+    updateCarValidationSchema, returnCarValidationSchema
 };

@@ -62,6 +62,15 @@ const deleteCar = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void
         data: result,
     });
 }));
+const returnCar = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield car_service_1.carServices.returnCarFromDB(req.body);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Car returned successfully',
+        data: result,
+    });
+}));
 exports.carControllers = {
-    createCar, getAllCars, getSingleCar, updateCar, deleteCar
+    createCar, getAllCars, getSingleCar, updateCar, deleteCar, returnCar
 };
