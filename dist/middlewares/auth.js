@@ -33,7 +33,7 @@ const auth = (...requiredRoles) => {
             throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, 'You are not authorized');
         // check role 
         if (!requiredRoles.includes(role)) {
-            throw new AppError_1.default(http_status_1.default.FORBIDDEN, 'You are unauthorized');
+            throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, 'You have no access to this route');
         }
         req.user = decoded;
         next();
