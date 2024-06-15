@@ -20,7 +20,8 @@ const createUser = catchAsync (async (req, res) => {
 const loginUser = catchAsync (async (req, res) => {
 
    const result = await authServices.loginUser(req.body);
-   const { token, ...user } = result;
+  
+   const { token, user } = result;
 
   res.json({
     success : true,
