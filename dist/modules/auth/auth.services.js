@@ -35,7 +35,6 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     // create a token for user 
     const jwtPayload = { email: user.email, role: user.role };
     const token = jsonwebtoken_1.default.sign(jwtPayload, config_1.default.jwt_access_secret, { expiresIn: config_1.default.jwt_access_expires });
-    console.log(Object.assign(Object.assign({}, user), { token }));
     return Object.assign(Object.assign({}, user), { token });
 });
 exports.authServices = {

@@ -5,7 +5,7 @@ const handleDuplicateError = (err) => {
     const match = err.message.match(/"([^"]*)"/);
     // The extracted value will be in the first capturing group
     const extractedMessage = match && match[1];
-    const errorSources = [
+    const errorMessages = [
         {
             path: '',
             message: `${extractedMessage} is already exists`,
@@ -15,7 +15,7 @@ const handleDuplicateError = (err) => {
     return {
         statusCode,
         message: 'Invalid ID',
-        errorSources,
+        errorMessages,
     };
 };
 exports.default = handleDuplicateError;

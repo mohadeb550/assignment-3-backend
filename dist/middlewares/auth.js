@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
-const AppError_1 = __importDefault(require("../errors/AppError"));
 const http_status_1 = __importDefault(require("http-status"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("../config"));
@@ -22,18 +21,35 @@ const auth = (...requiredRoles) => {
     return (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         const token = req.headers.authorization;
         // check if the token is sent or not ?
-        if (!token)
-            throw new AppError_1.default(http_status_1.default.FORBIDDEN, "you are not authorized");
+        if (!token) {
+            res.status(401).json({
+                "success": false,
+                "statusCode": http_status_1.default.FORBIDDEN,
+                "message": "you are not authorized"
+            });
+            return;
+        }
         // check if the token is valid
         const decoded = jsonwebtoken_1.default.verify(token.split(' ')[1], config_1.default.jwt_access_secret);
         const { email, role } = decoded;
         //    check if the user is exist?
         const user = yield user_model_1.User.findOne({ email, role });
-        if (!user)
-            throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, 'You are not authorized');
+        if (!user) {
+            res.status(401).json({
+                "success": false,
+                "statusCode": http_status_1.default.FORBIDDEN,
+                "message": "you are not authorized"
+            });
+            return;
+        }
         // check role 
         if (!requiredRoles.includes(role)) {
-            throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, 'You have no access to this route');
+            res.status(401).json({
+                "success": false,
+                "statusCode": 401,
+                "message": "You have no access to this route"
+            });
+            return;
         }
         req.user = decoded;
         next();

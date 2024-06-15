@@ -1,5 +1,7 @@
-import express from 'express'
+import express, { ErrorRequestHandler, NextFunction, Request, Response }  from 'express'
 import router from './routes'
+import globalErrorHandler from './middlewares/globalErrorHandler'
+
 const app = express()
 
 // use json body parser 
@@ -14,6 +16,10 @@ app.use('/api', router)
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
+
+// global error handler 
+app.use(globalErrorHandler)
+
 
 app.all('*', (req, res) => {
   res.status(404).json({
