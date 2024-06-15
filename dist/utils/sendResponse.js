@@ -1,12 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const sendResponse = (res, data) => {
-    var _a;
     let message = '';
     let statusCode = 0;
     let success;
     // if the data is not found or exist ?
-    if (!data.data || !((_a = data.data) === null || _a === void 0 ? void 0 : _a.length)) {
+    if (Array.isArray(data === null || data === void 0 ? void 0 : data.data) && !(data === null || data === void 0 ? void 0 : data.data.length)) {
+        message = 'No data found',
+            statusCode = 404;
+        success = false;
+    }
+    else if (typeof data.data === 'object' && !Object.keys(data === null || data === void 0 ? void 0 : data.data).length) {
+        message = 'No data found',
+            statusCode = 404;
+        success = false;
+    }
+    else if (!(data === null || data === void 0 ? void 0 : data.data)) {
         message = 'No data found',
             statusCode = 404;
         success = false;

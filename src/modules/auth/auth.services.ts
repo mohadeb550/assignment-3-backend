@@ -9,6 +9,7 @@ import config from "../../config";
 
 const createUserIntoDB = async (payload : TUser) => {
     const result = await User.create(payload);
+    result.password = "";
     return result;
 }
 

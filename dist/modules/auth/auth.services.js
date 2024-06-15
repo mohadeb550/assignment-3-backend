@@ -20,6 +20,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("../../config"));
 const createUserIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_model_1.User.create(payload);
+    result.password = "";
     return result;
 });
 const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
