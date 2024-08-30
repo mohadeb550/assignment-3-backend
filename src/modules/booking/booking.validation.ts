@@ -8,6 +8,7 @@ const createBookingValidationSchema = z.object({
     paymentMethod : z.string(),
     status : z.string().optional(),
     isReturnProcess : z.boolean().optional(),
+    isPaid : z.boolean().optional(),
 })
 
 export const bookingValidations = {

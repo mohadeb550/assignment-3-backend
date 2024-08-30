@@ -11,4 +11,5 @@ export type TBooking = {
     totalCost : number;
     status : string;
     isReturnProcess : boolean;
+    isPaid : boolean;
 }
