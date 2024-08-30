@@ -30,6 +30,52 @@ const getAllBookings = catchAsync (async (req, res) => {
   });
 })
 
+
+const getStatistics = catchAsync (async (req, res) => {
+   const result = await bookingServices.getStatisticsFromDB();
+   
+   sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'STatistics retrieved successfully',
+    data: result,
+  });
+})
+
+const getSingleBooking = catchAsync (async (req, res) => {
+   const result = await bookingServices.getSingleBookingFromDB(req.params.bookingId);
+   
+   sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Booking retrieved successfully',
+    data: result,
+  });
+})
+
+const updateBooking = catchAsync (async (req, res) => {
+  const result = await bookingServices.updateBookingIntoDB(req.params.bookingId , req.body);
+  
+  sendResponse(res, {
+   statusCode: httpStatus.OK,
+   success: true,
+   message: 'Booking updated successfully',
+   data: result,
+ });
+})
+
+const cancelBooking = catchAsync (async (req, res) => {
+  const result = await bookingServices.cancelBookingIntoDB(req.body);
+  
+  sendResponse(res, {
+   statusCode: httpStatus.OK,
+   success: true,
+   message: 'Booking cancelled successfully',
+   data: result,
+ });
+})
+
+
 const getUserBookings = catchAsync (async (req, res) => {
   // get user email from token decoded data 
   const userEmail = req?.user?.email;
@@ -47,5 +93,5 @@ const getUserBookings = catchAsync (async (req, res) => {
 
 
 export const bookingControllers = {
-    createBooking, getAllBookings, getUserBookings
+  cancelBooking,   createBooking, getAllBookings, getUserBookings, getSingleBooking, updateBooking, getStatistics
 }

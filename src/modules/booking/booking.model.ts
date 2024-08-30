@@ -14,6 +14,18 @@ const bookingSchema = new Schema<TBooking>({
         type : Object,
         required : true,
     },
+    phone : {
+        type: String,
+        required: true,
+    },
+    location : {
+        type: String,
+        required: true,
+    },
+    paymentMethod : {
+        type: String,
+        required: true,
+    },
     startTime : {
         type : String,
         required : true,
@@ -25,7 +37,15 @@ const bookingSchema = new Schema<TBooking>({
     totalCost: {
         type: Number,
         default: 0
-    }
+    },
+    status: {
+        type: String,
+        default: 'pending'
+    },
+    isReturnProcess: {
+        type: Boolean,
+        default: false
+    },
 }, { timestamps : true })
 
 export const Booking = model <TBooking>('Booking', bookingSchema);

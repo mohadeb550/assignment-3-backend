@@ -8,6 +8,13 @@ import config from "../../config";
 
 
 const createUserIntoDB = async (payload : TUser) => {
+    const user = await User.findOne({ email : payload.email });
+
+    // check user existence 
+    if(user){
+        throw new AppError(httpStatus.FORBIDDEN, 'already exist')
+    }
+
     const result = await User.create(payload);
     result.password = "";
     return result;

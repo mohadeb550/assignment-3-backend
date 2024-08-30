@@ -1,11 +1,15 @@
-import express, { ErrorRequestHandler, NextFunction, Request, Response }  from 'express'
+import express from 'express'
 import router from './routes'
 import globalErrorHandler from './middlewares/globalErrorHandler'
+import cors from 'cors'
 
 const app = express()
 
 // use json body parser 
 app.use(express.json())
+
+// use cors 
+app.use(cors( {origin: "http://localhost:5173"}));
 
 // use router
 app.use('/api', router)

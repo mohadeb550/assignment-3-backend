@@ -1,8 +1,11 @@
 
 export type TCar = {
     name : string;
+    carType : string;
+    location: string;
     description : string;
     color : string;
+    images : string[];
     isElectric : boolean;
     status : string;
     features : string[];
@@ -12,5 +15,12 @@ export type TCar = {
 
 export type TReturnCarPayload = {
     bookingId : string;
-    endTime : string;
 }
+
+export type TCarsQuery = {
+      carType?: string,
+      costRange?: string,
+      sortByCost? : string;
+      location?: string,
+      status? : string,
+  }

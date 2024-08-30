@@ -6,9 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const routes_1 = __importDefault(require("./routes"));
 const globalErrorHandler_1 = __importDefault(require("./middlewares/globalErrorHandler"));
+const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 // use json body parser 
 app.use(express_1.default.json());
+// use cors 
+app.use((0, cors_1.default)({ origin: "http://localhost:5173" }));
 // use router
 app.use('/api', routes_1.default);
 app.get('/', (req, res) => {

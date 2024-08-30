@@ -1,16 +1,14 @@
-import { Types } from "mongoose";
 
 export type TBooking = {
     date : string;
     user : object;
     car : object;
+    phone : string;
+    location: string;
+    paymentMethod : string;
     startTime : string;
     endTime : string;
     totalCost : number;
-}
-
-export type TCreateBooking = {
-    carId : string,
-    date : string,
-    startTime : string,
+    status : string;
+    isReturnProcess : boolean;
 }

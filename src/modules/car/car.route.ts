@@ -20,8 +20,8 @@ router.put('/:id', validateRequest(carValidations.updateCarValidationSchema), au
 router.delete('/:id', auth('admin') , carControllers.deleteCar)
 
 // get 
-router.get('/', auth('admin','user'),  carControllers.getAllCars)
-router.get('/:id', auth('admin','user'), carControllers.getSingleCar)
+router.get('/',  carControllers.getAllCars)
+router.get('/:id', carControllers.getSingleCar)
 
 
 export const CarRoutes = router;
