@@ -20,7 +20,7 @@ const sendResponse = <T>(res: Response, data: TResponse<T>) => {
     statusCode = 404;
     success = false;
   }
-  else if(typeof data.data === 'object' && !Object.keys(data?.data).length ){
+  else if(typeof data.data === 'object' && !Object.keys(data.data!).length ){
     message = 'No data found',
     statusCode = 404;
     success = false;

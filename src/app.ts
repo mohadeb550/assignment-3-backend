@@ -9,7 +9,8 @@ const app = express()
 app.use(express.json())
 
 // use cors 
-app.use(cors( {origin: "http://localhost:5173"}));
+app.use(cors( {origin: "*"}));
+// app.use(cors( {origin: "https://car-rental-frontend-hazel.vercel.app"}));
 
 // use router
 app.use('/api', router)

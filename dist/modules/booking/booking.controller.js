@@ -38,6 +38,42 @@ const getAllBookings = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
         data: result,
     });
 }));
+const getStatistics = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield booking_services_1.bookingServices.getStatisticsFromDB();
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'STatistics retrieved successfully',
+        data: result,
+    });
+}));
+const getSingleBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield booking_services_1.bookingServices.getSingleBookingFromDB(req.params.bookingId);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Booking retrieved successfully',
+        data: result,
+    });
+}));
+const updateBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield booking_services_1.bookingServices.updateBookingIntoDB(req.params.bookingId, req.body);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Booking updated successfully',
+        data: result,
+    });
+}));
+const cancelBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield booking_services_1.bookingServices.cancelBookingIntoDB(req.body);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Booking cancelled successfully',
+        data: result,
+    });
+}));
 const getUserBookings = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _b;
     // get user email from token decoded data 
@@ -51,5 +87,5 @@ const getUserBookings = (0, catchAsync_1.default)((req, res) => __awaiter(void 0
     });
 }));
 exports.bookingControllers = {
-    createBooking, getAllBookings, getUserBookings
+    cancelBooking, createBooking, getAllBookings, getUserBookings, getSingleBooking, updateBooking, getStatistics
 };

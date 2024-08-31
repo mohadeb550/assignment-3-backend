@@ -19,6 +19,6 @@ router.put('/:id', (0, validateRequest_1.default)(car_validation_1.carValidation
 // delete  
 router.delete('/:id', (0, auth_1.default)('admin'), car_controllers_1.carControllers.deleteCar);
 // get 
-router.get('/', (0, auth_1.default)('admin', 'user'), car_controllers_1.carControllers.getAllCars);
-router.get('/:id', (0, auth_1.default)('admin', 'user'), car_controllers_1.carControllers.getSingleCar);
+router.get('/', car_controllers_1.carControllers.getAllCars);
+router.get('/:id', car_controllers_1.carControllers.getSingleCar);
 exports.CarRoutes = router;

@@ -1,5 +1,6 @@
 
 export type TCar = {
+    _id? : string;
     name : string;
     carType : string;
     location: string;

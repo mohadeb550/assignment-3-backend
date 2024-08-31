@@ -19,6 +19,11 @@ const user_model_1 = require("../user/user.model");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("../../config"));
 const createUserIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield user_model_1.User.findOne({ email: payload.email });
+    // check user existence 
+    if (user) {
+        throw new AppError_1.default(http_status_1.default.FORBIDDEN, 'already exist');
+    }
     const result = yield user_model_1.User.create(payload);
     result.password = "";
     return result;

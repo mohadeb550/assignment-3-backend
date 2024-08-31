@@ -7,6 +7,7 @@ const userValidationSchema = zod_1.z.object({
     email: zod_1.z.string(),
     role: zod_1.z.enum(['user', 'admin']),
     password: zod_1.z.string(),
+    address: zod_1.z.string().optional(),
     image: zod_1.z.string(),
 });
 exports.userValidations = {

@@ -7,12 +7,24 @@ const carSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
+    carType: {
+        type: String,
+        required: true,
+    },
+    location: {
+        type: String,
+        required: true,
+    },
     description: {
         type: String,
         required: true,
     },
     color: {
         type: String,
+        required: true,
+    },
+    images: {
+        type: [String],
         required: true,
     },
     isElectric: {

@@ -20,13 +20,12 @@ const userSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
-    phone: {
-        type: String,
-        required: true,
-    },
     address: {
         type: String,
-        required: true
+    },
+    image: {
+        type: String,
+        required: true,
     }
 }, { timestamps: true });
 exports.User = (0, mongoose_1.model)('User', userSchema);

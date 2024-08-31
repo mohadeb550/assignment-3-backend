@@ -1,8 +1,9 @@
+import { TCar } from "../car/car.interface";
 
 export type TBooking = {
     date : string;
     user : object;
-    car : object;
+    car : TCar;
     phone : string;
     location: string;
     paymentMethod : string;

@@ -23,7 +23,7 @@ const createBookingIntoDB = (userEmail, payload) => __awaiter(void 0, void 0, vo
     // get userData by email 
     const userData = yield user_model_1.User.findOne({ email: userEmail }, { createdAt: 0, updatedAt: 0, password: 0, __v: 0 });
     // update the car status available to unavailable 
-    const carData = yield car_model_1.Car.findByIdAndUpdate(payload.carId, { status: 'unavailable' }, { new: true });
+    const carData = yield car_model_1.Car.findByIdAndUpdate(payload.car._id, { status: 'unavailable' }, { new: true });
     if (!userData) {
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'user is not exist');
     }
@@ -34,8 +34,6 @@ const createBookingIntoDB = (userEmail, payload) => __awaiter(void 0, void 0, vo
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'car is not found');
     }
     const bookingData = Object.assign({}, payload);
-    bookingData.user = userData;
-    bookingData.car = carData;
     const result = yield booking_model_1.Booking.create(bookingData);
     return result;
 });
@@ -48,10 +46,40 @@ const getAllBookingsFromDB = (query) => __awaiter(void 0, void 0, void 0, functi
     const result = yield booking_model_1.Booking.find(queryObj);
     return result;
 });
+const getStatisticsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
+    // Count total bookings
+    const totalBookings = yield booking_model_1.Booking.countDocuments();
+    // Count available cars
+    const availableCars = yield car_model_1.Car.countDocuments({ isDeleted: false, status: 'available' });
+    // Calculate total revenue from bookings
+    const bookings = yield booking_model_1.Booking.find({}).select('totalCost');
+    const totalRevenue = bookings.reduce((sum, booking) => sum + (booking.totalCost || 0), 0);
+    const statistics = {
+        totalBookings,
+        availableCars,
+        totalRevenue
+    };
+    return statistics;
+});
+const getSingleBookingFromDB = (bookingId) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield booking_model_1.Booking.findById(bookingId);
+    return result;
+});
+const updateBookingIntoDB = (bookingId, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield booking_model_1.Booking.findByIdAndUpdate(bookingId, payload, { new: true });
+    return result;
+});
+const cancelBookingIntoDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield booking_model_1.Booking.findByIdAndUpdate(payload.bookingId, { status: 'cancelled' });
+    if (result) {
+        yield car_model_1.Car.findByIdAndUpdate(payload.carId, { status: 'available' });
+        return result;
+    }
+});
 const getUserBookingsFromDB = (userEmail) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield booking_model_1.Booking.find({ 'user.email': userEmail });
     return result;
 });
 exports.bookingServices = {
-    createBookingIntoDB, getAllBookingsFromDB, getUserBookingsFromDB
+    cancelBookingIntoDB, createBookingIntoDB, getAllBookingsFromDB, getUserBookingsFromDB, getSingleBookingFromDB, updateBookingIntoDB, getStatisticsFromDB
 };

@@ -11,7 +11,8 @@ const app = (0, express_1.default)();
 // use json body parser 
 app.use(express_1.default.json());
 // use cors 
-app.use((0, cors_1.default)({ origin: "http://localhost:5173" }));
+// app.use(cors( {origin: "*"}));
+app.use((0, cors_1.default)({ origin: "https://car-rental-frontend-hazel.vercel.app" }));
 // use router
 app.use('/api', routes_1.default);
 app.get('/', (req, res) => {

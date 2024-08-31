@@ -5,14 +5,15 @@ import Stripe from 'stripe';
 import config from "../../config";
 import { paymentServices } from "./payment.service";
 
-const stripe = new Stripe(config.stripe_secret);
+const stripe = new Stripe(config.stripe_secret as string);
 
 
 
 const createPaymentIntent = catchAsync (async (req, res) => {
 
   const { totalCost , currency } = req.body;
-  const totalAmount = parseInt( totalCost * 100)
+  const convertedCost : number = parseInt(totalCost)
+  const totalAmount = convertedCost * 100
 
   const paymentIntent = await stripe.paymentIntents.create({
     amount: totalAmount,

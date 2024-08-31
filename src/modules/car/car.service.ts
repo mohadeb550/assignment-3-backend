@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SortOrder } from "mongoose";
 import { Booking } from "../booking/booking.model";
 import { TCar, TCarsQuery, TReturnCarPayload } from "./car.interface";
@@ -76,7 +77,7 @@ const deleteCarFromDB = async ( id: string) => {
 
 const returnCarFromDB = async (payload : TReturnCarPayload) => {
     // get the booking by id 
-    const booking = await Booking.findById(payload.bookingId)
+    const booking  = await Booking.findById(payload.bookingId)
     
     // calculating totalCost 
     const startTime = booking?.startTime;
@@ -87,7 +88,12 @@ const returnCarFromDB = async (payload : TReturnCarPayload) => {
 
     const differenceMilliseconds = date2 - date1;
     const diffHours = differenceMilliseconds / (1000 * 60 * 60);
-    const totalCost = diffHours * booking?.car?.pricePerHour;
+    let totalCost : number;
+    if(booking?.car.pricePerHour){
+      totalCost = diffHours * booking.car.pricePerHour
+    }else{
+      totalCost = 0;
+    }
 
         // update the car status 
         const carId = booking?.car?._id;
@@ -95,7 +101,7 @@ const returnCarFromDB = async (payload : TReturnCarPayload) => {
 
     // update the booking 
    const result =  await Booking.findByIdAndUpdate(payload.bookingId, { 
-    totalCost , 
+    totalCost : totalCost, 
     'car.status': 'available',
      status : 'completed',
       isReturnProcess: false

@@ -10,7 +10,7 @@ const sendResponse = (res, data) => {
             statusCode = 404;
         success = false;
     }
-    else if (typeof data.data === 'object' && !Object.keys(data === null || data === void 0 ? void 0 : data.data).length) {
+    else if (typeof data.data === 'object' && !Object.keys(data.data).length) {
         message = 'No data found',
             statusCode = 404;
         success = false;
